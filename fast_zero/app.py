@@ -1,13 +1,15 @@
 from fastapi import FastAPI
-
+import json
 app = FastAPI()
 
 
 @app.get('/tabuada/{num}')
 async def tabuada(num: int):
-    result = []
+    dicionario = {}
+    for i in range(1,11):
+        chave = f"{num} X {i}"
+        valor = num * i
+        dicionario[chave]  = valor
 
-    for i in range(10):
-        resultadoConta = f'{num} X {i} = {num * 1}'
-        result.append(resultadoConta)
-    return result
+    json_return = json.dumps(dicionario)
+    return dicionario
